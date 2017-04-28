@@ -18,17 +18,27 @@ UKF::UKF() {
   // if this is false, radar measurements will be ignored (except during init)
   use_radar_ = true;
 
+	// first measurement flag
+	is_initialized_ = false;
+
   // initial state vector
   x_ = VectorXd(5);
 
   // initial covariance matrix
   P_ = MatrixXd(5, 5);
 
+  //set initial covariance matrix
+  P_ << 1, 0, 0, 0, 0,
+        0, 1, 0, 0, 0,
+        0, 0, 1, 0, 0,
+        0, 0, 0, 1, 0,
+        0, 0, 0, 0, 1;
+
   // Process noise standard deviation longitudinal acceleration in m/s^2
-  std_a_ = 30;
+  std_a_ = 2;  // Acceleration:  0-6 m/s in 3 seconds -> 2 m/s^2 or 0.2g
 
   // Process noise standard deviation yaw acceleration in rad/s^2
-  std_yawdd_ = 30;
+  std_yawdd_ = 0.2; // Complete circle in 5 seconds.  Opposite circle in 1 second -> 2.5 rad/s^2
 
   // Laser measurement noise standard deviation position1 in m
   std_laspx_ = 0.15;
@@ -45,13 +55,35 @@ UKF::UKF() {
   // Radar measurement noise standard deviation radius change in m/s
   std_radrd_ = 0.3;
 
-  /**
-  TODO:
+	// size of state vector
+	n_x_ = x_.size();
 
-  Complete the initialization. See ukf.h for other member properties.
+	// size of augmented state vector
+	n_aug_ = n_x_ + 2;  // +1 for std_a_ and +1 for std_yawdd_
 
-  Hint: one or more values initialized above might be wildly off...
-  */
+	// number of sigma points
+	n_sig_ = 2 * n_aug_ + 1;
+
+	// define spreading parameters
+	lambda_ = 3 - n_aug_;
+
+	// Calculate weights
+	weights_ = VectorXd(n_sig_);
+	weights_.fill(1 / (2 * (lambda_ + n_aug_)));
+	weights_(0) = lambda_ / (lambda_ + n_aug_);
+
+	// Initialize sigma points
+	Xsig_pred_ = MatrixXd(n_x_, 2 * n_aug_ + 1);
+	Xsig_pred_.fill(0.0);
+
+  //Set weights
+  for (int i=1; i<n_sig_; i++) {
+    weights_(i) = .5 / (n_aug_ + lambda_);
+  }
+
+	// Initialize NIS for radar and lidar
+	NIS_radar_ = 0.0;
+	NIS_laser_ = 0.0;
 }
 
 UKF::~UKF() {}
