@@ -118,14 +118,19 @@ void UKF::ProcessMeasurement(MeasurementPackage meas_package) {
   // 2- Prediction
 
   float dt = (meas_pack.timestamp_ - previous_timestamp_) / 1000000.0;
-
   // skip prediction, if measurement has the same timestamp as previous one
   if (previous_timestamp_ < meas_pack.timestamp_ - 100) {
     Prediction(dt);
     previous_timestamp_ = meas_pack.timestamp_;
   }
 
+  // 3- Update
 
+  if (meas_pack.sensor_type_ == MeasurementPackage::RADAR) {
+    UpdateRadar(meas_pack);
+  } else if (meas_pack.sensor_type_ == MeasurementPackage::LASER) {
+    UpdateLidar(meas_pack);
+  }
 }
 
 /**
