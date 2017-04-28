@@ -139,12 +139,12 @@ void UKF::ProcessMeasurement(MeasurementPackage meas_package) {
  * measurement and this one.
  */
 void UKF::Prediction(double delta_t) {
-  /**
-  TODO:
+  MatrixXd Xsig_aug(n_aug_, n_sigma_);
 
-  Complete this function! Estimate the object's location. Modify the state
-  vector, x_. Predict sigma points, the state, and the state covariance matrix.
-  */
+  GenerateAugmentedSigmaPoints(x_, P_, Xsig_aug);
+  std::cout << Xsig_aug << std::endl;
+  SigmaPointPrediction(delta_t, Xsig_aug, Xsig_pred_);
+  PredictMeanAndCovariance(Xsig_pred_, x_, P_);
 }
 
 /**
