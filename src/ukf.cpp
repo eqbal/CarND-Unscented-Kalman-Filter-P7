@@ -93,12 +93,27 @@ UKF::~UKF() {}
  * either radar or laser.
  */
 void UKF::ProcessMeasurement(MeasurementPackage meas_package) {
-  /**
-  TODO:
+  //Initialization
 
-  Complete this function! Make sure you switch between lidar and radar
-  measurements.
-  */
+  if (!is_initialized_) {
+    previous_timestamp_  = meas_package.timestamp_;
+
+    // initialize the state vector
+    if (meas_pack.sensor_type_ == MeasurementPackage::RADAR) {
+      float ro = meas_pack.raw_measurements_[0];
+      float phi = meas_pack.raw_measurements_[1];
+      x_ << ro * cos(phi), ro * sin(phi), 0, 0, 0;
+      is_initialized_ = true;
+
+    } else if (meas_pack.sensor_type_ == MeasurementPackage::LASER) {
+      x_ << meas_pack.raw_measurements_[0], meas_pack.raw_measurements_[1], 0, 0, 0;
+      is_initialized_ = true;
+
+    } else {
+      std::cout << "Invalid sensor type" << std::endl;
+    }
+    return;
+  }
 }
 
 /**
