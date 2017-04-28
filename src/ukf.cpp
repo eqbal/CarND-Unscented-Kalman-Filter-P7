@@ -93,7 +93,7 @@ UKF::~UKF() {}
  * either radar or laser.
  */
 void UKF::ProcessMeasurement(MeasurementPackage meas_package) {
-  //Initialization
+  // 1- Initialization
 
   if (!is_initialized_) {
     previous_timestamp_  = meas_package.timestamp_;
@@ -114,6 +114,18 @@ void UKF::ProcessMeasurement(MeasurementPackage meas_package) {
     }
     return;
   }
+
+  // 2- Prediction
+
+  float dt = (meas_pack.timestamp_ - previous_timestamp_) / 1000000.0;
+
+  // skip prediction, if measurement has the same timestamp as previous one
+  if (previous_timestamp_ < meas_pack.timestamp_ - 100) {
+    Prediction(dt);
+    previous_timestamp_ = meas_pack.timestamp_;
+  }
+
+
 }
 
 /**
