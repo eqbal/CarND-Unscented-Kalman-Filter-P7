@@ -38,6 +38,9 @@ public:
   ///* Process noise standard deviation longitudinal acceleration in m/s^2
   double std_a_;
 
+  ///* Time when the state is true
+  long long time_start;
+
   ///* Process noise standard deviation yaw acceleration in rad/s^2
   double std_yawdd_;
 
@@ -61,6 +64,9 @@ public:
 
   ///* State dimension
   int n_x_;
+
+  ///* Number of sigma points
+  int n_sig_;
 
   ///* Augmented state dimension
   int n_aug_;

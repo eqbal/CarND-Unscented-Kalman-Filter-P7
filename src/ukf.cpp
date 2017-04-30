@@ -62,16 +62,10 @@ UKF::UKF() {
   lambda_ = 3 - n_aug_;
 
   // Vector for weights
-  weights_ = VectorXd(2*n_aug_+1);
+  weights_ = VectorXd(n_sig_);
 
   // Initialize sigma points
-  Xsig_pred_ = MatrixXd(n_x_, 2 * n_aug_ + 1);
-  Xsig_pred_.fill(0.0);
-
-  //Set weights
-  for (int i=1; i<n_sig_; i++) {
-    weights_(i) = .5 / (n_aug_ + lambda_);
-  }
+  Xsig_pred_ = MatrixXd(n_x_, n_sig_);
 
   // Start time
   time_start = 0;
