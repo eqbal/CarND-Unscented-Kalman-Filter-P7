@@ -80,6 +80,24 @@ Based on the provided data set, my Unscented Kalman Filter will produce the belo
 |  vx   | 0.16735 |
 |  vy   | 0.20016 |
 
+### Comparisons
+
+
+| Input | UKF-Lidar | UKF-Radar | EKF-Fused | UKF-Fused |
+| ----- | --------- | --------- | --------- | --------- |
+|  px   |  0.09346  |  0.15123  |  0.13997  |  0.06908  |
+|  py   |  0.09683  |  0.19708  |  0.66551  |  0.07967  |
+|  vx   |  0.24238  |  0.20591  |  0.60388  |  0.16735  |
+|  vy   |  0.31516  |  0.24436  |  1.62373  |  0.20016  |
+
+### Visualization
+
+	.... to be filled after try playground notebook
+
+## Conclusion
+
+As expected, the Unscented Kalman Filter that uses sensor fusion to combine lidar and radar measurements is the most accurate (lowest MSE) of the results.
+
 
 ## Editor Settings
 
