@@ -46,6 +46,41 @@ RMSE
 Done!
 ```
 
+## Paramaters Setup
+
+To have the best results here we have to tune some params so we can improve `RMSE`.
+
+Some params to be tuned include `std_a`, `std_yawd`, the initialized `x_` for Radar and Lidar, and `P_` for each sensor type.
+
+| param name | description                                                         | value | why                                                                                             |
+|------------|---------------------------------------------------------------------|-------|-------------------------------------------------------------------------------------------------|
+| `std_a_`     | process noise standard deviation longitudinal acceleration in m/s^2 | 1     | Bikes (which is what we are detecting in this project) we shouldn't expect a high acceleration. |
+| `std_yawd_`  | process noise standard deviation yaw acceleration in rad/s^2        | .5    | A big value would have to swerve pretty heavily for a big acceleration in yaw                   |
+
+* `x_` and `P_` for Radar:
+
+  * `x_`: The middle value, for `v`, can be tuned. I set this to a value of `4 m/s` since the average bike speed is `15.5 km/h`, which is just over `4 m/s`.
+
+  * `P_`: I used the square of the given standard deviations to calculate reasonable values for `P_`, for the middle value of 'v' which I used `1`.
+
+* `x_` and `P_` for Lidar:
+
+  * `x_`: The first two values are filled by the 'px' and 'py' lidar measurements. I used `4 m/s` for `v` in the same way as for radar. I chose yaw of `.5` as a reasonable estimate of a beginning turn, with yawd as `0` given no expected big swerves at the start.
+
+  * `P_`: We are given the  from the lidar measurements, so I squared these to feed in the respective variances to the matrix. I just used `1` for the other variances along the diagonal as a reasonable beginning value.
+
+## Results
+
+Based on the provided data set, my Unscented Kalman Filter will produce the below results. 
+
+| Input |   MSE   |
+| ----- | ------- |
+|  px   | 0.06908 |
+|  py   | 0.07967 |
+|  vx   | 0.16735 |
+|  vy   | 0.20016 |
+
+
 ## Editor Settings
 
 We've purposefully kept editor configuration files out of this repo in order to
