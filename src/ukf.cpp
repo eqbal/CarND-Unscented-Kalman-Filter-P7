@@ -29,10 +29,10 @@ UKF::UKF() {
   P_ = MatrixXd(5, 5);
 
   // Process noise standard deviation longitudinal acceleration in m/s^2
-  std_a_ = 2;  // Acceleration:  0-6 m/s in 3 seconds -> 2 m/s^2 or 0.2g
+  std_a_ = 1;  // Acceleration:  0-6 m/s in 3 seconds -> 2 m/s^2 or 0.2g
 
   // Process noise standard deviation yaw acceleration in rad/s^2
-  std_yawdd_ = 0.2; // Complete circle in 5 seconds.  Opposite circle in 1 second -> 2.5 rad/s^2
+  std_yawdd_ = 0.5;
 
   // Laser measurement noise standard deviation position1 in m
   std_laspx_ = 0.15;
@@ -59,7 +59,7 @@ UKF::UKF() {
   n_sig_ = 2 * n_aug_ + 1;
 
   // define spreading parameters
-  lambda_ = 3 - n_aug_;
+  lambda_ = 0;
 
   // Vector for weights
   weights_ = VectorXd(n_sig_);
