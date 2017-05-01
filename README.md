@@ -1,13 +1,29 @@
-# Unscented Kalman Filter Project Starter Code
-Self-Driving Car Engineer Nanodegree Program
+# Unscented Kalman Filter Project
 
----
+
+## Introduction
+
+[This Project](https://github.com/udacity/CarND-Unscented-Kalman-Filter-Project) is the seventh project (Project 2 / Term 2) of the Udacity Self-Driving Car Nanodegree program.
+
+The main goal of the project is to apply Unscented Kalman Filter to fuse data from LIDAR and Radar sensors of a self driving car using C++. This is a more advanced and more accurate method than the one used in the previous Extended Kalman Filter project.
+
+The code will make a prediction based on the sensor measurement and then update the expected position. See files in the 'src' folder for the primary C++ files making up this project.
 
 ## Dependencies
 
 * cmake >= v3.5
 * make >= v4.1
 * gcc/g++ >= v5.4
+
+## Structure and Files
+
+  - `scr`: a directory with the project code:
+  - `main.cpp`: reads in data, calls a function to run the Kalman filter, calls a function to calculate RMSE
+  - `ukf.cpp`:  initializes the filter, calls the predict function, calls the update function
+  - `tools.cpp`: a function to calculate RMSE.
+  - `data`: a directory with an input file, provided by Udacity
+  - `output`: a directory which contains the output for running ukf
+  - `playground.ipynb`: a python notebook for experimenting the data and output and generate some graphs.
 
 ## Basic Build Instructions
 
@@ -17,6 +33,18 @@ Self-Driving Car Engineer Nanodegree Program
 4. Run it: `./UnscentedKF path/to/input.txt path/to/output.txt`. You can find
    some sample inputs in 'data/'.
     - eg. `./UnscentedKF ../data/obj_pose-laser-radar-synthetic-input.txt`
+
+## Sample Output
+
+```
+CarND-Unscented-Kalman-Filter-Project [master●●] % ./build/UnscentedKF data/obj_pose-laser-radar-synthetic-input.txt output/output.txt
+RMSE
+0.0690774
+0.0796665
+ 0.167352
+ 0.200159
+Done!
+```
 
 ## Editor Settings
 
