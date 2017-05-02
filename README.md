@@ -1,5 +1,7 @@
 # Unscented Kalman Filter Project
 
+- By: [Eqbal Quran](www.eqbalq.com)
+
 
 ## Introduction
 
@@ -8,6 +10,20 @@
 The main goal of the project is to apply Unscented Kalman Filter to fuse data from LIDAR and Radar sensors of a self driving car using C++. This is a more advanced and more accurate method than the one used in the previous Extended Kalman Filter project.
 
 The code will make a prediction based on the sensor measurement and then update the expected position. See files in the 'src' folder for the primary C++ files making up this project.
+
+This project assumes the **CTRV** motion model on given datasets. To deal with non-linear models, UKF works via unscented transformations.
+
+In the **Predict phase**, it begins by generating Sigma points, augments them, and then predicts the mean state vector and process covariance matrices.
+
+In the **Update phase**, the sigma points are transformed into measurement space, and then the updates are applied based on sensor (Radar/Lidar) measurements to get the new values for state vector and process covariance matrix.
+
+Results of the UKF project are shown below:
+
+![Position Accuracy](./assets/position_acc1.png)
+
+![More Position Accuracy](./assets/position_acc2.png)
+
+![Velocity Accuracy](./assets/velocity_acc.png)
 
 ## Dependencies
 
@@ -97,9 +113,11 @@ Based on the provided data set, my Unscented Kalman Filter will produce the belo
 |  vx   |  0.24238  |  0.20591  |  0.60388  |  0.16735  |
 |  vy   |  0.31516  |  0.24436  |  1.62373  |  0.20016  |
 
-### Visualization
+### NIS Visualization
 
+![NIS for Lidar](./assets/NIS_lidar.png)
 
+![NIS for Radar](./assets/NIS_radar.png)
 
 ## Conclusion
 
