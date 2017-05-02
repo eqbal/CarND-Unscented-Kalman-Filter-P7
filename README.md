@@ -34,6 +34,13 @@ The code will make a prediction based on the sensor measurement and then update 
    some sample inputs in 'data/'.
     - eg. `./UnscentedKF ../data/obj_pose-laser-radar-synthetic-input.txt`
 
+## Sample Data
+
+The format for the input data looks something like:
+
+![Sample Data](./assets/sample_data_input.png)
+
+
 ## Sample Output
 
 ```
@@ -92,7 +99,7 @@ Based on the provided data set, my Unscented Kalman Filter will produce the belo
 
 ### Visualization
 
-	.... to be filled after try playground notebook
+
 
 ## Conclusion
 
